@@ -42,7 +42,7 @@ $('#sf').onsubmit=async e=>{
   const ck=await sb.rpc('check_invitation',{_code:code});
   if(ck.error)throw ck.error;
   if(!ck.data){$('#notice').innerHTML='<div class="notice">El código no es válido, ya fue utilizado o venció. Solicita una nueva invitación al administrador.</div>';return}
-  const r=await sb.auth.signUp({email,password,options:{data:{invite_code:code,full_name:ck.data}}});
+  const r=await sb.auth.signUp({email,password,options:{emailRedirectTo:'https://cumbre-entregas-cobros.vercel.app',data:{invite_code:code,full_name:ck.data}}});
   if(r.error){
    const m=r.error.message||'No se pudo crear la cuenta.';
    const wait=m.match(/after (\\d+) seconds/i);
